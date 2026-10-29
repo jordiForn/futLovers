@@ -1,0 +1,61 @@
+<section class="mx-auto max-w-md">
+  <h1 class="text-2xl font-semibold">Crear cuenta</h1>
+  <p class="mt-1 text-sm text-slate-600">Un perfil simple para jugar partidos cerca de ti.</p>
+
+  <form class="mt-6 space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label class="block text-sm font-medium" for="username">Nombre público</label>
+      <input
+        id="username"
+        class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+        type="text"
+        autocomplete="nickname"
+        formControlName="username"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-medium" for="email">Email</label>
+      <input
+        id="email"
+        class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+        type="email"
+        autocomplete="email"
+        formControlName="email"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-medium" for="password">Contraseña</label>
+      <input
+        id="password"
+        class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+        type="password"
+        autocomplete="new-password"
+        formControlName="password"
+      />
+    </div>
+
+    @if (error()) {
+      <p class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">{{ error() }}</p>
+    }
+    @if (info()) {
+      <p class="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-900" role="status">{{ info() }}</p>
+    }
+
+    <button
+      class="w-full rounded-lg bg-emerald-700 px-4 py-2.5 font-medium text-white disabled:opacity-60"
+      type="submit"
+      [disabled]="submitting()"
+    >
+      @if (submitting()) {
+        Creando cuenta…
+      } @else {
+        Registrarme
+      }
+    </button>
+  </form>
+
+  <p class="mt-4 text-sm text-slate-600">
+    ¿Ya tienes cuenta?
+    <a class="font-medium text-emerald-800 underline" routerLink="/login">Inicia sesión</a>
+  </p>
+</section>
