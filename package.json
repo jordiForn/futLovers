@@ -1,0 +1,5 @@
+{
+  "name": "futlovers",
+  "private": true,
+  "description": "FutLovers monorepo. Frontend dependencies live in frontend/."
+}

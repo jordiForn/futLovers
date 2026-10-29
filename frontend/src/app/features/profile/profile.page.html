@@ -1,0 +1,42 @@
+<section class="mx-auto max-w-md">
+  <h1 class="text-2xl font-semibold">Tu perfil</h1>
+
+  @if (loading()) {
+    <p class="mt-6 text-sm text-slate-600" role="status">Cargando perfil…</p>
+  } @else if (profile(); as current) {
+    <p class="mt-2 text-sm text-slate-600">
+      Nivel {{ current.level }} · Fiabilidad {{ current.reliability_score }}
+    </p>
+
+    <form class="mt-6 space-y-4" [formGroup]="form" (ngSubmit)="save()">
+      <div>
+        <label class="block text-sm font-medium" for="username">Nombre público</label>
+        <input
+          id="username"
+          class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+          type="text"
+          formControlName="username"
+        />
+      </div>
+      @if (error()) {
+        <p class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">{{ error() }}</p>
+      }
+      @if (saved()) {
+        <p class="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-900" role="status">Perfil actualizado.</p>
+      }
+      <button
+        class="w-full rounded-lg bg-emerald-700 px-4 py-2.5 font-medium text-white disabled:opacity-60"
+        type="submit"
+        [disabled]="saving()"
+      >
+        Guardar
+      </button>
+    </form>
+
+    <button class="mt-6 text-sm font-medium text-slate-700 underline" type="button" (click)="logout()">
+      Cerrar sesión
+    </button>
+  } @else if (error()) {
+    <p class="mt-6 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">{{ error() }}</p>
+  }
+</section>

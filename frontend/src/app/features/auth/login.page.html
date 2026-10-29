@@ -1,0 +1,48 @@
+<section class="mx-auto max-w-md">
+  <h1 class="text-2xl font-semibold">Iniciar sesión</h1>
+  <p class="mt-1 text-sm text-slate-600">Entra para crear partidos o unirte a uno.</p>
+
+  <form class="mt-6 space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label class="block text-sm font-medium" for="email">Email</label>
+      <input
+        id="email"
+        class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+        type="email"
+        autocomplete="email"
+        formControlName="email"
+      />
+    </div>
+    <div>
+      <label class="block text-sm font-medium" for="password">Contraseña</label>
+      <input
+        id="password"
+        class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+        type="password"
+        autocomplete="current-password"
+        formControlName="password"
+      />
+    </div>
+
+    @if (error()) {
+      <p class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">{{ error() }}</p>
+    }
+
+    <button
+      class="w-full rounded-lg bg-emerald-700 px-4 py-2.5 font-medium text-white disabled:opacity-60"
+      type="submit"
+      [disabled]="submitting()"
+    >
+      @if (submitting()) {
+        Entrando…
+      } @else {
+        Entrar
+      }
+    </button>
+  </form>
+
+  <p class="mt-4 text-sm text-slate-600">
+    ¿No tienes cuenta?
+    <a class="font-medium text-emerald-800 underline" routerLink="/register">Regístrate</a>
+  </p>
+</section>
