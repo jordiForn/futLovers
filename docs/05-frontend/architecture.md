@@ -1,52 +1,30 @@
-# Arquitectura Frontend 
+# Arquitectura Frontend
 
-El frontend utiliza Angular y está organizado por funcionalidades
-(feature-based architecture).
+El frontend usa Angular organizado por funcionalidades.
 
+```text
 src/app/
 ├── core/
 │   ├── auth/
 │   ├── supabase/
 │   ├── guards/
-│   └── services/
-│
+│   └── location/
 ├── shared/
-│   ├── components/
-│   ├── pipes/
-│   └── directives/
-│
+│   └── layout/
 └── features/
     ├── auth/
     ├── matches/
-    ├── profile/
-    ├── bookings/
-    └── location/
+    └── profile/
+```
 
 ## Core
 
-Contiene funcionalidades globales de la aplicación.
-
-Ejemplos:
-
-autenticación;
-cliente Supabase;
-guards;
-configuración;
-servicios globales.
+Cliente Supabase, autenticación, guards y ubicación.
 
 ## Shared
 
-Contiene componentes reutilizables que no pertenecen a una
-funcionalidad específica.
+Layout y piezas reutilizables mínimas.
 
-Ejemplos:
+## Features
 
-Button;
-Modal;
-Loading;
-Avatar;
-Empty State;
-Header.
-Features
-
-Cada funcionalidad importante tiene su propio módulo/directorio.
+Pantallas de auth, partidos y perfil. Las consultas a Supabase viven en servicios, no en componentes de presentación.

@@ -1,44 +1,35 @@
 # Securización de la BBDD
 
-FutLovers utiliza Row Level Security (RLS) de Supabase.
+RLS está activo en todas las tablas del esquema `public`.
+
+Las funciones `security definer` viven en el esquema `private`.
 
 ## profiles
 
-### SELECT
-Los perfiles públicos pueden ser consultados por usuarios.
+- SELECT: perfiles públicos (`anon` y `authenticated`)
+- INSERT / UPDATE: solo el propio usuario (`auth.uid() = id`)
+- DELETE: no permitido al cliente
 
-### INSERT
-Un usuario solo puede crear su propio perfil.
+Al registrarse, un trigger crea la fila de perfil.
 
-### UPDATE
-Un usuario solo puede modificar su propio perfil.
+## venues / fields
 
----
+- SELECT: público (`anon` y `authenticated`)
+- INSERT / UPDATE / DELETE: no permitido al cliente (solo seed/migración)
 
 ## matches
 
-### SELECT
-Los partidos abiertos son visibles para los usuarios.
+- SELECT: público
+- INSERT: usuario autenticado y `created_by = auth.uid()`
+- UPDATE / DELETE: solo el creador
 
-### INSERT
-Solo usuarios autenticados.
-
-### UPDATE
-Solo el creador del partido.
-
-### DELETE
-Solo el creador del partido.
-
----
+Al crear un partido, un trigger apunta al creador como participante.
 
 ## match_players
 
-### SELECT
-Los participantes de los partidos son visibles.
+- SELECT: público
+- INSERT: solo la propia participación, si el partido está `open` y hay plaza
+- DELETE: solo la propia fila
+- UPDATE: no permitido al cliente
 
-### INSERT
-Un usuario autenticado puede unirse a un partido si cumple las
-condiciones correspondientes.
-
-### DELETE
-Un usuario puede abandonar sus propias participaciones.
+La capacidad F5 = 10 y la unicidad de participación se aplican en Postgres.

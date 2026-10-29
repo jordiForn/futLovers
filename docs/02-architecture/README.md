@@ -2,68 +2,44 @@
 
 ## Visión general
 
-
+```text
 Angular
-   │
-   │ Supabase SDK
-   ▼
+  │
+  │ Supabase SDK
+  ▼
 Supabase
 ├── Auth
 ├── PostgreSQL
-├── Storage
 ├── RLS
-└── Realtime
+├── Storage (cuando haga falta)
+└── Realtime (cuando haga falta)
+```
 
-Frontend
+El MVP no tiene API backend propia. La carpeta `api/` (NestJS) se deja sin usar.
 
-Angular
-TypeScript
+## Entidades del MVP
 
-Backend
+- `profiles`
+- `venues`
+- `fields`
+- `matches`
+- `match_players`
 
-El MVP utiliza Supabase como Backend-as-a-Service.
+`bookings` queda fuera del MVP, aunque el modelo conceptual las separa de los partidos (ADR-003).
 
-No existe actualmente una API backend propia.
+## Deployment
 
-Base de datos
+- Frontend: Git → Vercel
+- Backend: proyecto Supabase gestionado aparte
 
-PostgreSQL mediante Supabase.
+## Ramas
 
-Entidades previstas:
+- `main`: producción
+- `develop`: integración
+- `frontend` / `backend`: ramas históricas de scaffolding
 
-profiles
-venues
-fields
-matches
-match_players
-bookings
-Deployment
+## Principios
 
-Frontend:
-
-Git → main → Vercel
-
-Backend:
-
-Supabase gestionado independientemente del despliegue del frontend.
-
-Repositorios / ramas
-
-main
-└── Producción
-
-develop
-└── Integración
-
-front
-└── Desarrollo frontend
-
-back
-└── Desarrollo backend / Supabase
-
-Principios
-Priorizar simplicidad durante el MVP.
-Evitar sobrearquitectura.
-Mantener el modelo de datos preparado para expansión.
-Separar partidos de reservas.
-La funcionalidad principal es encontrar y jugar partidos.
+- Simplicidad durante el MVP
+- Priorizar el flujo Jugar
+- No acoplar un partido a una reserva
